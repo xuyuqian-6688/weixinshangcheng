@@ -9,4 +9,5 @@ class Member extends Model
     //
     protected $table='member';
     protected $primaryKey='id';
+
 }

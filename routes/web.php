@@ -16,9 +16,28 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-use App\Model\Member;
-Route::get('/member', function () {
+/**
+ * 登录注册
+ */
 
-    return Member::all();
-    //return view('welcome');
+Route::get('/login',"LoginController@login");
+Route::get('/register',"LoginController@register");
+//登录界面验证码
+Route::any('/validate','Service\ValidateCodeController@create');
+//手机验证码
+Route::get('/sendSMS','Service\ValidateCodeController@sendSMS');
+//注册
+Route::any('/toregister','LoginController@toregister');
+//登录
+Route::any('/tologin','LoginController@tologin');
+Route::group([
+    "prefix"=>"/",
+    "middleware"=>["verify_login"],
+],function(){
+    Route::get('a',function (){
+       echo '11111111';
+    });
 });
+
+//Route::get('/');
+
